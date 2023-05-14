@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:login_page/screens/background.dart';
-import 'package:login_page/screens/loginpage.dart';
+import './loginpage.dart';
+import 'background.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -12,10 +12,14 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  _RegisterPageState() {
+    _selectedValue = _productSizeList[0];
+  }
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
   final _usernameController = TextEditingController();
+  String dropdownvalue = 'profession';
 
   Future<void> signUp() async {
     showDialog(
@@ -37,6 +41,9 @@ class _RegisterPageState extends State<RegisterPage> {
     _nameController.dispose();
     super.dispose();
   }
+
+  final _productSizeList = ["Engineer", "Doctor", "Pilot", "Student"];
+  String? _selectedValue = "";
 
   @override
   Widget build(BuildContext context) {
@@ -76,15 +83,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 decoration: const InputDecoration(labelText: "Email"),
               ),
             ),
-            SizedBox(height: size.height * 0.03),
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 40),
-              child: TextField(
-                controller: _usernameController,
-                decoration: const InputDecoration(labelText: "Username"),
-              ),
-            ),
+            // SizedBox(height: size.height * 0.03),
+            // Container(
+            //   alignment: Alignment.center,
+            //   margin: const EdgeInsets.symmetric(horizontal: 40),
+            //   child: TextField(
+            //     controller: _usernameController,
+            //     decoration: const InputDecoration(labelText: "Username"),
+            //   ),
+            // ),
             SizedBox(height: size.height * 0.03),
             Container(
               alignment: Alignment.center,
@@ -95,6 +102,39 @@ class _RegisterPageState extends State<RegisterPage> {
                 obscureText: true,
               ),
             ),
+
+            SizedBox(height: size.height * 0.03),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: DropdownButtonFormField(
+                decoration: const InputDecoration(
+                    labelText: "PROFESSION",
+                    prefixIcon: Icon(
+                      Icons.work,
+                      color: Colors.deepPurple,
+                    ),
+                    border: OutlineInputBorder()),
+                iconEnabledColor: Colors.red,
+                hint: Text("Tap to Select"),
+                items: _productSizeList
+                    .map((e) => DropdownMenuItem(
+                          child: Text(e),
+                          value: e,
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    _selectedValue = val as String;
+                  });
+                },
+                icon: const Icon(
+                  Icons.arrow_drop_down_circle,
+                  color: Colors.deepPurple,
+                ),
+                dropdownColor: Colors.deepPurple.shade100,
+              ),
+            ),
+
             // Container(
             //   alignment: Alignment.centerRight,
             //   margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),

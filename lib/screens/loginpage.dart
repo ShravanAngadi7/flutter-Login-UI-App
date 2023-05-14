@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:login_page/screens/background.dart';
-import 'package:login_page/screens/registerpage.dart';
+import 'background.dart';
+import './registerpage.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback showRegisterPage;
